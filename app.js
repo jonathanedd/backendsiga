@@ -3,6 +3,19 @@ const cors = require("cors");
 require("./utils/associations");
 const path = require("path");
 
+const allowedOrigins = ["https://gentle-mud-0a442560f.5.azurestaticapps.net"];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true, // Allow credentials if needed
+};
+
 //Routes
 const usuarioRouter = require("./routers/usuario.routes");
 const generoRouter = require("./routers/genero.routes");
@@ -29,11 +42,13 @@ app.use(express.json());
 //   })
 // );
 
-app.use(
-  cors({
-    origin: "https://gentle-mud-0a442560f.5.azurestaticapps.net", // URL de tu Static Web App
-  })
-);
+// app.use(
+//   cors({
+//     origin: "https://gentle-mud-0a442560f.5.azurestaticapps.net", // URL de tu Static Web App
+//   })
+// );
+
+app.use(cors(corsOptions));
 
 const baseRoute = "/api/v2";
 
