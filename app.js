@@ -23,9 +23,15 @@ const { verificarToken } = require("./middlewares/authenticate.middleware");
 const app = express();
 // app.use(cors());
 app.use(express.json());
+// app.use(
+//   cors({
+//     origin: "http://localhost:3000",
+//   })
+// );
+
 app.use(
   cors({
-    origin: "http://localhost:3000", // Cambia esto al dominio de tu frontend
+    origin: "https://your-static-web-app.azurestaticapps.net", // URL de tu Static Web App
   })
 );
 
