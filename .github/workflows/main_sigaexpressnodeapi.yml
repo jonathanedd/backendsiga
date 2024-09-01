@@ -31,7 +31,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: .
+          path: |
+            ./**/*
+            !**/node_modules/**/*
 
   deploy:
     runs-on: ubuntu-latest
@@ -47,7 +49,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: node-app
-          path: 'D:\\a\\backendsiga\\backendsiga\\node_modules\\npmlog\\package.json'
+          path: ./artifact
+          
       
       - name: Login to Azure
         uses: azure/login@v2
