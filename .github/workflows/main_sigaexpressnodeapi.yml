@@ -47,12 +47,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: node-app
-          path: |
-            **/*
-            !node_modules/**  # Excluye la carpeta node_modules
-            !**/*.log         # Excluye archivos de log
-            !*.gitignore      # Excluye el archivo .gitignore
-            # Agrega otros patrones según sea necesario
+          path: 'D:\\a\\backendsiga\\backendsiga\\node_modules\\npmlog\\package.json'
       
       - name: Login to Azure
         uses: azure/login@v2
