@@ -5,16 +5,16 @@ const path = require("path");
 
 const allowedOrigins = ["https://gentle-mud-0a442560f.5.azurestaticapps.net"];
 
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true, // Allow credentials if needed
-};
+// const corsOptions = {
+//   origin: (origin, callback) => {
+//     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   credentials: true, // Allow credentials if needed
+// };
 
 //Routes
 const usuarioRouter = require("./routers/usuario.routes");
@@ -48,7 +48,15 @@ app.use(express.json());
 //   })
 // );
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+
+app.use(
+  cors({
+    origin: "https://tu-frontend.azurestaticapps.net", // Ajusta esto a la URL de tu frontend
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 const baseRoute = "/api/v2";
 
