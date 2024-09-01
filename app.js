@@ -31,7 +31,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://your-static-web-app.azurestaticapps.net", // URL de tu Static Web App
+    origin: "https://gentle-mud-0a442560f.5.azurestaticapps.net", // URL de tu Static Web App
   })
 );
 
