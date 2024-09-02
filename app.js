@@ -3,9 +3,11 @@ const cors = require("cors");
 require("./utils/associations");
 const path = require("path");
 
-const allowedOrigins = ["https://gentle-mud-0a442560f.5.azurestaticapps.net"];
-
-
+const corsOptions = {
+  origin: "https://gentle-mud-0a442560f.5.azurestaticapps.net", // URL de tu frontend
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
 
 //Routes
 const usuarioRouter = require("./routers/usuario.routes");
@@ -24,7 +26,6 @@ const archivoPeiRouter = require("./routers/archivoPei.routes");
 //middlewares
 const { verificarToken } = require("./middlewares/authenticate.middleware");
 
-
 const app = express();
 // app.use(cors());
 app.use(express.json());
@@ -34,26 +35,7 @@ app.use(express.json());
 //   })
 // );
 
-app.use(
-  cors({
-    origin: allowedOrigins,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
-
-app.use((req, res, next) => {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://gentle-mud-0a442560f.5.azurestaticapps.net"
-  );
-  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  next();
-});
-
-app.options("*", cors());
-
+app.use(cors(corsOptions));
 
 const baseRoute = "/api/v2";
 
