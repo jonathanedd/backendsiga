@@ -52,7 +52,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://gentle-mud-0a442560f.5.azurestaticapps.net", // Ajusta esto a la URL de tu frontend
+    origin: "*", // Ajusta esto a la URL de tu frontend
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
