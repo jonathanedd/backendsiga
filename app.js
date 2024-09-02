@@ -5,16 +5,7 @@ const path = require("path");
 
 const allowedOrigins = ["https://gentle-mud-0a442560f.5.azurestaticapps.net"];
 
-// const corsOptions = {
-//   origin: (origin, callback) => {
-//     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS"));
-//     }
-//   },
-//   credentials: true, // Allow credentials if needed
-// };
+
 
 //Routes
 const usuarioRouter = require("./routers/usuario.routes");
@@ -33,6 +24,7 @@ const archivoPeiRouter = require("./routers/archivoPei.routes");
 //middlewares
 const { verificarToken } = require("./middlewares/authenticate.middleware");
 
+
 const app = express();
 // app.use(cors());
 app.use(express.json());
@@ -42,21 +34,26 @@ app.use(express.json());
 //   })
 // );
 
-// app.use(
-//   cors({
-//     origin: "https://gentle-mud-0a442560f.5.azurestaticapps.net", // URL de tu Static Web App
-//   })
-// );
-
-// app.use(cors(corsOptions));
-
 app.use(
   cors({
-    origin: "https://gentle-mud-0a442560f.5.azurestaticapps.net", // Ajusta esto a la URL de tu frontend
+    origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
+app.use((req, res, next) => {
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://gentle-mud-0a442560f.5.azurestaticapps.net"
+  );
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
+
+app.options("*", cors());
+
 
 const baseRoute = "/api/v2";
 
