@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 //associations
 const { Usuario, Rol } = require("../utils/associations");
@@ -11,7 +12,7 @@ const generateToken = async (usuario, rol) => {
     apellidos: usuario.apellidos,
     rol: rol,
   };
-  const token = jwt.sign(payload, "secreto", { expiresIn: "1h" });
+  const token = jwt.sign(payload, process.env.SECRET, { expiresIn: "1h" });
   console.log("Token generado: ", token, "ROL GENERATED:", rol);
   return token;
 };
