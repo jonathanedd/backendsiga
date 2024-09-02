@@ -1,8 +1,9 @@
 const { app } = require("./app");
 const db = require("./utils/database");
+require("dotenv").config();
 require("./utils/associations");
 
-const port = 4000;
+const port = process.env.PORT || 4000;
 
 db.sync({ force: false }) // Asegúrate de no usar { force: true } en producción ya que borrará todos los datos
   .then(() => {
